@@ -1,0 +1,54 @@
+body{
+	font-family: Arial, sans-serif;
+
+	background-image: url('../img/fondo.jpg');
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+
+	margin: 0;
+	padding: 20px;
+
+}
+
+header{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	width: auto;
+	height: 100px;
+	background-color: #dfdf0b;
+	border: 2px solid ;
+	border-color: darkgray;
+
+	padding: 10px;
+	text-align: center;
+}
+
+header h1{
+	font-size: 50px;
+}
+
+main{
+	background-color: white;
+	padding: 20px;
+	margin: 20px auto;
+
+	border: 2px solid;
+	border-color: darkgray;
+
+	width: 1000px;
+}
+
+h3{
+	font-size: 30px;
+}
+
+p{
+	line-height: 1.6;
+}
+
+li{
+	line-height: 2;
+}
+

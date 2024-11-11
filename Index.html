@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Index</title>
+	<link rel="stylesheet" type="text/css" href="recursos/css/cambio.css">
+</head>
+<body>
+	<header>
+		<h1>Introducción a Django</h1>
+	</header>
+
+	<main>
+		<section>
+			<h3>¿Qué es Django? </h3>
+
+			<p>Django es un framework de desarrollo web de alto nivel, escrito en Python, que facilita la creación de aplicaciones web de forma rápida y con un código limpio y eficiente. Fue diseñado con un enfoque en la simplicidad, la reutilización de componentes y la rápida iteración de desarrollo.</p>
+
+			<li>Desarrollo de sitios web dinámicos</li>
+			<li>Administración de contenido</li>
+			<li>Aplicaciones e-commerce</li>
+			<li>Desarrollo de APIs</li>
+			<li>Aplicaciones de redes sociales</li>
+			<li>Plataformas educativas</li>
+			<li>Aplicaciones empresariales</li>
+			<li>Prototipos y MVPs (productos mínimos viables)</li>
+
+
+		</section>
+
+		<section>
+			<h3>Principales características y ventajas</h3>
+
+			<li><b>Administración automática: </b>Django genera automáticamente una interfaz de administración para gestionar los modelos de la base de datos, lo que ahorra tiempo y esfuerzo en tareas comunes.</li>
+
+			<li><b> ORM (Object-Relational Mapping):  </b>Django incluye un ORM que permite interactuar con bases de datos usando objetos Python en lugar de escribir SQL, facilitando el manejo de datos.</li>
+
+			<li><b>Seguridad: </b>Django incluye medidas de seguridad integradas para proteger aplicaciones web contra amenazas comunes, como inyección de SQL, cross-site scripting (XSS), y cross-site request forgery (CSRF).</li>
+
+			<li><b> Escalabilidad y modularidad: </b>Permite desarrollar aplicaciones modulares que pueden escalar fácilmente, adaptándose a proyectos de diferentes tamaños y complejidades.</li>
+
+			<li><b>Comunidad activa: </b>Django tiene una comunidad grande y activa, lo que significa que hay abundante documentación, tutoriales y paquetes reutilizables que aceleran el desarrollo.</li>
+		</section>
+
+		<section>
+			<h3>Desventajas del uso de Django</h3>
+
+			<p>Aunque Django es un framework muy poderoso, también presenta algunas desventajas o limitaciones que es importante considerar, dependiendo del tipo de proyecto:</p>
+
+			<p><b>Monolítico: </b></p>
+			<li> Django sigue una arquitectura monolítica, lo que significa que todo está estrechamente integrado. Si bien esto facilita el desarrollo rápido, puede dificultar la flexibilidad si se desean usar solo partes específicas del framework o si se quiere migrar a una arquitectura de microservicios.</li>
+
+			<p><b>Curva de aprendizaje: </b></p>
+			<li>Aunque Django ofrece muchas herramientas y automatización, para los principiantes puede ser abrumador aprender y manejar todas sus características, especialmente si no tienen experiencia previa con frameworks web o con Python.</li>
+
+			<p><b>Poca flexibilidad con bases de datos no relacionales: </b></p>
+			<li>Django está diseñado principalmente para trabajar con bases de datos relacionales (como PostgreSQL o MySQL) a través de su ORM (Object-Relational Mapping). Aunque existen adaptaciones para bases de datos NoSQL, no es su enfoque principal y no tiene el mismo soporte que para las bases de datos relacionales.</li>
+
+			<p><b>Rendimiento: </b></p>
+			<li>Para aplicaciones de gran escala con requisitos de alto rendimiento, Django puede no ser la opción más eficiente en comparación con otros frameworks más ligeros o específicos para microservicios. Puede requerir optimizaciones adicionales y un manejo cuidadoso de recursos para evitar problemas de rendimiento.</li>
+
+			<p><b>Componentes predefinidos: </b></p>
+			<li> Django tiene una estructura rígida que puede imponer limitaciones en términos de personalización. Para algunos desarrolladores, esta estructura puede sentirse restrictiva, ya que los componentes de Django (como su ORM, formularios y plantillas) están diseñados de manera muy específica.</li>
+
+			<p><b>No es ideal para aplicaciones pequeñas o simples: </b></p>
+			<li>Si bien Django es excelente para proyectos de gran escala y complejidad, puede ser excesivo para aplicaciones pequeñas o sencillas. Otros frameworks más ligeros como Flask en Python pueden ser más adecuados en esos casos, ya que requieren menos configuración y tienen menos sobrecarga.</li>
+
+			<p><b>Tamaño de la comunidad en comparación con otros frameworks: </b></p>
+			<li> Aunque Django tiene una comunidad activa, esta no es tan grande como la de otros frameworks como React, Node.js o Laravel. Esto puede influir en la cantidad de recursos, plugins y soluciones disponibles para ciertos problemas específicos.</li>					
+		</section>
+
+		<section>
+			<p>Cuando creas un proyecto con <b>django-admin startproject (nombre_proyecto)</b>, la estructura básica que obtienes es algo como esto:</p>
+
+			<div class="txtCodigo">
+				mi_proyecto/ 
+			       manage.py  
+			       mi_proyecto/   
+		             __init__.py  
+		             settings.py  
+		             urls.py  
+		             asgi.py  
+		             wsgi.py
+			</div>
+		</section>
+
+		<section>
+			<h3>Archivos y carpetas importantes</h3>
+
+			<p><b>manage.py: </b></p>
+			<li>Es un script que permite interactuar con el proyecto Django desde la línea de comandos. Usas este archivo para ejecutar comandos como iniciar el servidor (runserver), migrar la base de datos (migrate), crear aplicaciones (startapp), entre otros.</li>
+
+			<img src="">
+
+			<p><b> Carpeta mi_proyecto/ (o el nombre de tu proyecto): </b></p>
+			<ol>
+				<li>Es un script que permite interactuar con el proyecto Django desde la línea de comandos. Usas este archivo para ejecutar comandos como iniciar el servidor (runserver), migrar la base de datos (migrate), crear aplicaciones (startapp), entre otros.</li>
+			</ol>
+
+			<p><b>__init__.py: </b> Indica que esta carpeta debe tratarse como un módulo de Python. Por lo general, está vacío.</p>
+
+			<p><b>settings.py: </b>Contiene toda la configuración del proyecto, como las bases de datos, las aplicaciones instaladas, las configuraciones de seguridad, rutas de archivos estáticos, entre otros. Este es uno de los archivos más importantes.</p>
+
+			<p><b>urls.py: </b>Aquí defines las rutas (URLs) que manejará tu proyecto. Es el "mapeo" entre las URL solicitadas por el navegador y las vistas (views) que deben procesarlas.</p>
+
+			<p><b>wsgi.py y asgi.py: </b>Son archivos para la implementación del servidor web. wsgi.py es para el protocolo WSGI y asgi.py para ASGI. Son usados cuando el proyecto se despliega en un entorno de producción.</p>
+		</section>
+
+		<section>
+			<h3>Estructura de una aplicación Django</h3>
+
+			<p>Cuando se crea una aplicación con python <b>manage.py startapp (nombre_app)</b>, se genera una estructura de carpetas similar a esta:</p>
+
+			<div class="txtCodigo2">
+				mi_proyecto/ 
+			        manage.py  
+			        mi_proyecto/   
+		               __init__.py  
+		            __init__.py 
+					admin.py 
+					apps.py 
+					models.py 
+					tests.py 
+					views.py
+			</div>
+		</section>
+
+		<section>
+			<h3>Archivos clave en una aplicación</h3>
+
+			<p><b>migrations/: </b></p>
+			<li> Esta carpeta contiene los archivos de migración que se generan cuando haces cambios en los modelos de la aplicación (por ejemplo, cuando añades o modificas campos en la base de datos). Las migraciones aseguran que la base de datos esté sincronizada con los modelos del proyecto.</li>
+
+			<p><b>__init__.py: </b></p>
+			<li> Como en la carpeta del proyecto, este archivo indica que la carpeta de la aplicación es un módulo de Python.</li>
+
+			<p><b>admin.py: </b></p>
+			<li>Archivo donde se deben registrar los modelos para que aparezcan en la interfaz de administración de Django.</li>
+
+			<p><b> apps.py: </b></p>
+			<li>Define la configuración de la aplicación. Por lo general, se utiliza para darle un nombre a la app y otras configuraciones específicas.</li>
+
+			<p><b>models.py: </b></p>
+			<li> Aquí defines los modelos de la base de datos que se guardan por medio del método save(). Un modelo en Django es una representación de una tabla de base de datos y cada campo en el modelo corresponde a una columna en esa tabla.</li>
+
+			<p><b>tests.py: </b></p>
+			<li>Archivo donde defines las pruebas unitarias (tests) de la aplicación para asegurarte de que todo funcione correctamente.</li>
+
+			<p><b>views.py: </b></p>
+			<li>Aquí defines las vistas (views), que son las funciones o clases que procesan las solicitudes HTTP y generan una respuesta. Es el lugar donde se maneja la lógica de negocio de la aplicación.</li>
+		</section>
+
+		<section>
+			<h3>Resumen de la estructura</h3>
+
+			<li><b>Proyecto Django: </b> Contiene archivos de configuración global como settings.py y urls.py.</li>
+
+			<li><b>Aplicaciones Django: </b> Son módulos independientes con su propia lógica, incluyendo modelos, vistas y migraciones.</li>
+		</section>
+
+		<br>
+		<a href="Desarrollo de un CRUD.html">Ver los pasos para el Desarrollo de un CRUD</a>
+	</main>
+
+</body>
+</html>

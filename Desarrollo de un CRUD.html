@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pasos para el desarrollo de un CRUD</title>
+	<link rel="stylesheet" type="text/css" href="recursos/css/cambio2.css">
+	
+
+</head>
+<body>
+	<main>
+	    <h1>CONFIGURACIÓN INICIAL DEL PROYECTO Y APLICACIÓN WEB</h1>
+
+	    <h2>1. En la consola/terminal seleccionar la carpeta física donde vamos a contener nuestro proyecto.</h2>
+	    <p><code>cd Desktop/Django/practica2</code></p>
+
+	    <h2>2. En la misma consola/terminal crear el nuevo proyecto</h2>
+	    <p><code>django-admin startproject modulo</code></p>
+
+	    <h2>3. Una vez creado el proyecto, abrimos la carpeta en Visual Studio Code y seleccionamos nueva terminal. Ahí creamos la nueva carpeta que contendrá las aplicaciones (módulos) de nuestro proyecto.</h2>
+	    <ul>
+	        <li>Windows: <code>md modulo</code></li>
+	        <li>Mac: <code>mkdir modulo</code></li>
+	    </ul>
+
+	    <h2>4. Ahora nos ubicamos dentro de la carpeta modulo</h2>
+	    <p><code>cd modulo</code></p>
+
+	    <h2>5. Una vez seleccionado la carpeta, creamos nuestra primer aplicación / módulo del sistema</h2>
+	    <p><code>django-admin startapp alumno</code></p>
+
+	    <h2>6. Una vez creado el proyecto volvemos a la raíz de la carpeta</h2>
+	    <p><code>cd ..</code></p>
+	    <img src="recursos/img/imagen1.jpeg">
+
+	    <h2>7. Ahora se tiene que registrar la nueva aplicación creada en el archivo <code>settings.py</code> de la carpeta principal (proyecto2)</h2>
+	    <pre>
+	    <code>
+	    INSTALLED_APPS = [
+	        "django.contrib.admin",
+	        "django.contrib.auth",
+	        "django.contrib.contenttypes",
+	        "django.contrib.sessions",
+	        "django.contrib.messages",
+	        "django.contrib.staticfiles",
+	        "modulo.alumno"
+	    ]
+	    </code>
+	    </pre>
+	    <img src="recursos/img/imagen2.jpeg">
+
+	    <h2>8. En el mismo archivo <code>settings.py</code> configurar el nombre de la base de datos SQLite</h2>
+	    <pre>
+	    <code>
+	    DATABASES = {
+	        "default": {
+	            "ENGINE": "django.db.backends.sqlite3",
+	            "NAME": "DBALUMNO.db",
+	        }
+	    }
+	    </code>
+	    </pre>
+	    <img src="recursos/img/imagen3.jpeg">
+
+	    <h2>9. Sobre el mismo archivo <code>settings.py</code> habrá que configurar el lenguaje y zona horaria para la configuración del proyecto.</h2>
+	    <pre>
+	    <code>
+	    LANGUAGE_CODE = "es-mx"
+	    TIME_ZONE = "America/Monterrey"
+	    USE_I18N = True
+	    USE_TZ = True
+	    </code>
+	    </pre>
+	    <p>Consultar: <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank">https://en.wikipedia.org/wiki/List_of_tz_database_time_zones</a></p>
+	    <img src="recursos/img/imagen4.jpeg">
+
+	    <h2>10. Ahora dentro de la aplicación creada (alumno) seleccionamos el archivo <code>models.py</code> para crear la arquitectura/modelo/clase que permite el mapeo de objetos relacionados “ORM” para la gestión de los datos en la base de datos.</h2>
+	    <pre>
+	    <code>
+	    class ALUMNO(models.Model):
+	        IdAlumno = models.CharField(primary_key=True, max_length=10)
+	        Matricula = models.CharField(max_length=10)
+	        Nombre = models.CharField(max_length=80)
+	        PrimerApellido = models.CharField(max_length=50)
+	        SegundoApellido = models.CharField(max_length=50)
+	    </code>
+	    </pre>
+	    <img src="recursos/img/imagen5.jpeg">
+
+	    <h2>11. Sobre la misma carpeta seleccionamos el archivo <code>admin.py</code> el cual permitirá la gestión de la información con el administrador de Django.</h2>
+	    <pre>
+	    <code>
+	    from django.contrib import admin
+	    from .models import ALUMNO
+
+	    # Register your models here.
+	    admin.site.register(ALUMNO)
+	    </code>
+	    </pre>
+
+	    <h2>12. Volvemos a la terminal para realizar la migración inicial de nuestro proyecto (ejecutar y registrar cambios), en la terminal se escribe el siguiente comando.</h2>
+	    <p>NOTA: Debemos estar en la carpeta raíz del proyecto (practica2). Si marca error hay que revisar el archivo <code>app.py</code> y colocarle el nombre de la carpeta.</p>
+	    <pre>
+	    <code>
+	    python manage.py migrate
+	    </code>
+	    </pre>
+
+	    <h3>Si es necesario, también se puede agregar este código en el archivo <code>app.py</code>:</h3>
+	    <pre>
+	    <code>
+	    from django.apps import AppConfig
+
+	    class alumnoConfig(AppConfig):
+	        default_auto_field = "django.db.models.BigAutoField"
+	        name = "modulo.alumno"
+	    </code>
+	    </pre>
+
+	    <h2>13. Ahora debemos migrar el modelo creado como una tabla de SQL por eso desde consola colocamos la sentencia.</h2>
+	    <pre>
+	    <code>
+	    python manage.py makemigrations
+	    </code>
+	    </pre>
+
+	    <h1>CONFIGURACIÓN DE CONTROL ADMINISTRATIVO DJANGO (SUPER USUARIO)</h1>
+
+	    <h2>14. El superusuario va a permitir interactuar directamente con la interfaz de Django para el funcionamiento de permisos de administrador.</h2>
+	    <p>Ejecuta el siguiente comando en la terminal:</p>
+	    <pre><code>python manage.py createsuperuser</code></pre>
+	    <p>Ignora cualquier error que aparezca y coloca el usuario, correo y contraseña cuando se te solicite.</p>
+	    <p>Una vez hecho esto, vuelve a ejecutar:</p>
+	    <pre><code>python manage.py makemigrations</code></pre>
+
+	    <h2>15. Limpiamos/cerramos la terminal y ejecutamos el servidor</h2>
+	    <pre><code>python manage.py runserver</code></pre>
+	    <img src="recursos/img/imagen6.jpeg">
+
+	    <h2>16. Listo, ahora que está configurado, podemos entrar al panel de administrador colocando la liga</h2>
+	    <p><a href="http://127.0.0.1:8000/admin/" target="_blank">http://127.0.0.1:8000/admin/</a></p>
+	    <p>Ingresa con el usuario y contraseña que creaste en el paso 14.</p>
+	    <img src="recursos/img/imagen7.jpeg">
+	    <img src="recursos/img/imagen8.jpeg">
+
+	    <h2>17. Una vez creado el usuario y entrado al admin, tenemos que hacer una nueva migración (por cada cambio aplicado) para poder crear registros y ver cambios.</h2>
+	    <pre><code>python manage.py migrate</code></pre>
+	    <p><strong>NOTA:</strong> Si al actualizar el admin marca el error 404 es porque el servidor se apagó. Por lo que es necesario volver a ejecutarlo (paso 15).</p>
+
+	    <h2>18. Realizamos un registro de prueba dando clic en el botón “Agregar” dentro de la tabla.</h2>
+	    <p>Si todo está bien, veremos el resultado en la pantalla anterior. El problema es que no se distingue el registro (paso 19).</p>
+	    <img src="recursos/img/imagen9.jpeg">
+	    <img src="recursos/img/imagen10.jpeg">
+
+	    <h2>19. En el archivo <code>models.py</code> dentro de la carpeta de la aplicación, hay que agregar un método <code>__str__</code> para poder crear una “vista” de registros dentro de los registros de la base de datos.</h2>
+	    <pre><code>
+	    def __str__(self):
+	        alumno_detalle = "({0}) {1} {2} {3} {4}"
+	        return alumno_detalle.format(self.IdAlumno, self.Matricula, self.Nombre, self.PrimerApellido, self.SegundoApellido)
+	    </code></pre>
+
+	    <h1>CREAR INTERFACES GRÁFICAS</h1>
+
+	    <h2>20. Ahora bien, se tienen que crear las interfaces gráficas/templates HTML + CSS + JavaScript para que el usuario interactúe con la aplicación.</h2>
+	    <p>Para este paso, se puede cerrar sesión del admin de Django y apagar el servidor (CTRL + C en la consola) y cerrarlo.</p>
+	    <p>Dentro de la carpeta de módulo, da clic derecho y crea una nueva carpeta bajo el nombre de <code>templates</code>. Hay que respetar este nombre porque Django reconoce a la carpeta como la contenedora de los archivos HTML.</p>
+	    <p><strong>NOTA:</strong> En caso de colocarle otro nombre es necesario crear una configuración adicional, pero no se recomienda.</p>
+
+	    <h2>21. Dentro de la carpeta <code>templates</code> creada, agrega un nuevo archivo HTML. En este caso se le denomina “adminAlumno.html”.</h2>
+	    <p>En este archivo se crea toda la interfaz gráfica de la aplicación utilizando HTML5 + CSS + JavaScript, y algunos frameworks externos como Bootstrap, FontAwesome, etc.</p>
+	    <p>Ejemplo de archivo <code>adminAlumno.html</code>:</p>
+
+	    <pre><code>
+	    <!DOCTYPE html>
+	    <html>
+	    <head>
+	        <meta charset="UTF-8">
+	        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	        <title>Alumno</title>
+	    </head>
+	    <body>
+	        <h1>Administración Alumnos</h1>
+	    </body>
+	    </html>
+	    </code></pre>
+
+	    <h2>22. Para configurar el proyecto para que reconozca la página web por medio de la interfaz, debemos crear un nuevo archivo <code>urls.py</code> dentro de la aplicación para posteriormente configurar la nueva ruta de acceso.</h2>
+	    <pre><code>
+	    from django.urls import path
+	    from . import views
+
+	    urlpatterns = [
+	        path("", views.home)
+	    ]
+	    </code></pre>
+	    <img src="recursos/img/paso22.jpeg">
+
+	    <h2>23. Ahora debemos configurar el archivo <code>views.py</code> para poder acceder a la ruta creada en el archivo <code>urls.py</code> creado anteriormente.</h2>
+	    <pre><code>
+	    from django.shortcuts import render
+
+	    # Create your views here.
+	    def home(request):
+	        return render(request, "adminAlumno.html")
+	    </code></pre>
+
+	    <h2>24. Posteriormente, vamos a la <code>urls.py</code> del proyecto en general y agregamos el conjunto de las rutas creadas dentro de las <code>urls.py</code> de la aplicación. Para eso, modificamos el archivo para que quede de la siguiente manera:</h2>
+	    <pre><code>
+	    from django.contrib import admin
+	    from django.urls import path, include
+
+	    urlpatterns = [
+	        path("admin/", admin.site.urls),
+	        path("", include("modulo.alumno.urls"))
+	    ]
+	    </code></pre>
+
+	    <h2>25. Volvemos a abrir una terminal y ejecutamos el servidor:</h2>
+	    <pre><code>python manage.py runserver</code></pre>
+	    <img src="recursos/img/paso25.jpeg">
+
+	    <h2>26. Si todo es correcto, ahora vamos a listar los registros de la base de datos en la interfaz. Para este paso nos dirigimos a <code>views.py</code> de la aplicación y modificamos lo siguiente:</h2>
+	    <pre><code>
+	    from django.shortcuts import render
+	    from .models import ALUMNO
+
+	    # Create your views here.
+	    def home(request):
+	        lstAlumno = ALUMNO.objects.all()
+	        return render(request, "adminAlumno.html", {"tblAlumno": lstAlumno})
+	    </code></pre>
+
+	    <h2>27. Ahora en la interfaz agregamos una lista para mostrar los registros.</h2>
+	    <pre><code>
+	    <!DOCTYPE html>
+	    <html>
+	    <head>
+	        <meta charset="UTF-8">
+	        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	        <title>Alumno</title>
+	    </head>
+	    <body>
+	        <h1>Administración Alumnos</h1>
+	        <ul>
+	            {% for a in tblAlumno %}
+	                <li>{{a.Nombre}}</li>
+	            {% endfor %}
+	        </ul>
+	    </body>
+	    </html>
+	    </code></pre>
+	    <img src="recursos/img/paso27.jpeg">
+
+	    <h2>28. Para dar diseño, se utilizará principalmente Bootstrap y CSS. Para evitar pegar los CDN y todos los scripts en cada una de las páginas, vamos a crear un diseño general para todo el sitio. Para eso, creamos un archivo <code>plantilla.html</code> donde se encuentra el <code>adminAlumno.html</code> y vamos a pegar toda la estructura HTML y referencias externas.</h2>
+	    <p>Ejemplo de archivo</p>
+
+	    <img src="recursos/img/captura.png">
+
+
+	    <h1>29. Como ya se tiene una plantilla, el archivo adminAlumno.html, ahora solo quedará de la siguiente manera.</h1>
+	    
+	    <h2>Ejemplo:</h2>
+	    <img src="recursos/img/paso28.jpeg">
+
+	    <h1>FUNCIONALIDADES DEL CRUD EN DJANGO</h1>
+	    
+	    <h2>CREATE</h2>
+	    <p>Debemos definir el botón Guardar de type submit, que es importante recordar que está dentro de las etiquetas de <code>&lt;form&gt;</code>.</p>
+	    
+	    <h3>1. Definición del Formulario</h3>
+	    <p>En el <code>&lt;form&gt;</code> se debe definir el <code>action</code> y el <code>method</code>, de la siguiente manera:</p>
+	    <ul>
+	        <li><code>action: /registrarAlumno/</code> (define la ruta de acceso a donde se enviarán los datos del formulario)</li>
+	        <li><code>method: post</code> (método para obtener los datos externos de un formulario)</li>
+	    </ul>
+	    <p>Adicionalmente debemos agregar de igual forma el bloque <code>csrf_token</code> que es una forma de “proteger” la información enviada al servidor:</p>
+	    <pre><code>
+	    <form action="/registrarAlumno/" method="post">
+	        {% csrf_token %}
+	    </form>
+	    </code></pre>
+
+	    <h3>2. Crear la URL en <code>urls.py</code></h3>
+	    <p>Ahora debemos crear la URL que se definió anteriormente para el envío del formulario, dentro del archivo <code>urls.py</code> de la aplicación:</p>
+	    <pre><code>
+	    from django.urls import path
+	    from . import views
+
+	    urlpatterns = [
+	        path("", views.home),
+	        path("registrarAlumno/", views.registrarAlumno)
+	    ]
+	    </code></pre>
+
+	    <h3>3. Crear la vista <code>registrarAlumno</code> en <code>views.py</code></h3>
+	    <p>Marcará un pequeño error en la terminal debido a que aún no existe la vista <code>registrarAlumno</code>, por lo que debemos crearla dentro del archivo <code>views.py</code> de la aplicación. En esta vista se define la función que recibe los datos del formulario desde la interfaz gráfica:</p>
+	    <pre><code>
+	    from django.shortcuts import render, redirect
+	    from .models import ALUMNO
+
+	    # Create your views here.
+	    def home(request):
+	        lstAlumno = ALUMNO.objects.all()
+	        return render(request, "adminAlumno.html", {"tblAlumno": lstAlumno})
+
+	    def registrarAlumno(request):
+	        # Aquí se maneja el formulario y se guarda el nuevo alumno
+	    </code></pre>
+
+	    <h1>FUNCIONALIDADES DEL CRUD EN DJANGO</h1>
+
+	    <h3>CREATE</h3>
+	    <p>Debemos definir el botón Guardar de <code>type="submit"</code>, que es importante recordar que está dentro de las etiquetas de <code>&lt;form&gt;</code>.</p>
+
+	    <h4>Registrar Alumno</h4>
+	    <p>Para agregar un nuevo registro en la base de datos, se deben recuperar los datos del formulario y pasarlos al modelo de Django:</p>
+
+	    <pre><code>
+	    pIdAlumno = request.POST["txtId"]
+	    pMatricula = request.POST["txtMatricula"]
+	    pNombre = request.POST["txtNombre"]
+	    pPrimerApellido = request.POST["txtPrimerApellido"]
+	    pSegundoApellido = request.POST["txtSegundoApellido"]
+
+	    alumno = ALUMNO.objects.create(
+	        IdAlumno = pIdAlumno,
+	        Matricula = pMatricula,
+	        Nombre = pNombre,
+	        PrimerApellido = pPrimerApellido,
+	        SegundoApellido = pSegundoApellido
+	    )
+
+	    return redirect("/")
+	    </code></pre>
+
+	    <p><strong>NOTA:</strong> Aquí van todos los campos de la tabla que son obligatorios. Se importa la librería <code>redirect</code> que permite redireccionar la aplicación después de realizar cierta acción. Posteriormente, la función <code>registrarAlumno</code> obtiene todos los valores de los <code>&lt;input&gt;</code> de la parte gráfica y los asigna a los objetos del modelo. Por último, se realiza la inserción a la base de datos por medio del método <code>create</code> y se retorna al inicio.</p>
+
+	    <p><strong>NOTA:</strong> Si no funciona, se recomienda apagar y volver a ejecutar el servidor.</p>
+	    <ul>
+	        <li>Apagar: <code>CTRL + C</code> desde la terminal donde se está ejecutando.</li>
+	        <li>En caso de marcar error, hay que agregar la propiedad <code>name</code> a los controles con el mismo ID. Ejemplo:</li>
+	    </ul>
+
+	    <img src="recursos/img/pasonuevo1.jpeg">
+
+	    <p>Listo, ya debería estar haciendo registros.</p>
+
+	    <h3>READ</h3>
+	    <p>Esta acción básicamente ya la habíamos desarrollado en el archivo anterior, donde listamos los campos de la base de datos en la tabla.</p>
+	    <img src="recursos/img/pasonuevo2.jpeg">
+
+	    <p>Antes de hacer las acciones siguientes de editar y eliminar, es necesario diseñar los controles que permitirán realizar dichas acciones. Para eso, vamos al archivo <code>adminAlumno.html</code> que contiene la interfaz del módulo y editamos la tabla.</p>
+	    <img src="recursos/img/pasonuevo3.jpeg">
+	    <img src="recursos/img/pasonuevo4.jpeg">
+	    <img src="recursos/img/pasonuevo5.jpeg">
+	    <img src="recursos/img/pasonuevo6.jpeg">
+	    <img src="recursos/img/pasonuevo7.jpeg">
+	    <img src="recursos/img/pasonuevo8.jpeg">
+	    <img src="recursos/img/pasonuevo9.jpeg">
+	</main>
+
+
+ 
+
+</body>
+</html>
